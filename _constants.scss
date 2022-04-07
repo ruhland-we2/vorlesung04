@@ -1,0 +1,30 @@
+/* Desktop >= 840px */
+/* Tablet >= 480px und <= 839 */
+/* Phone  <= 479 */
+
+
+$DesktopSize: 840px;
+$TabletSize: 480px;
+
+$HeaderHeight: 50px;
+$HeaderBackgroundColor: darkblue;
+$SideMenuWidth: 300px;
+$SideMenuBackgroundColor: blue;
+
+@mixin materialButton {
+    display: inline-block;
+    border: none;
+    background-color: inherit;
+    color: inherit;
+}
+
+@mixin menuItem {
+    text-decoration: none;
+    padding: 10px;
+    font-size: 1.1em;
+}
+
+@mixin elevationZ($deepness) {
+    box-shadow: 0px $deepness $deepness -1px rgba(0, 0, 0, 0.2), 0px $deepness $deepness 0px rgba(0, 0, 0, 0.14), 0px 1px $deepness 0px rgba(0, 0, 0, 0.12); 
+}
+  

@@ -1,0 +1,146 @@
+@import '_constants';
+
+@mixin pageDashboardHeaderButton {
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+}
+
+#page-dashboard {
+    .header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: $HeaderHeight;
+        background-color: darkblue;
+        color: white;
+        font-size: 1.2em;
+        @include elevationZ(5px);
+    }
+
+    .header .menu-button{
+        @include pageDashboardHeaderButton;
+        background-image: url("./baseline-menu-24px.svg");
+        margin-left: 10px;
+    }
+    .title{
+        flex-grow: 1;
+        text-align: center;
+    }
+    .settings-menu{
+        width: 40px; // Wichtig Size = Button Size
+        height: 40px;
+        margin-right: 10px;
+    }
+    .settings-button{
+        @include pageDashboardHeaderButton;
+        background-image: url("./more_vert_white_24dp.svg");
+    }
+    .settings-popup{
+        display: none;
+        position: relative;
+        top: 5px;
+        left: -110px;
+        width: 150px;
+        height: 100px;
+        z-index: 10;
+        border-radius: 5px;
+        background-color: white;
+        padding: 5px;
+        a{
+            @include menuItem;
+            color: black;
+        }
+    }
+    .settings-popup.open{
+        display: block;
+    }
+    .side-menu{
+        width: $SideMenuWidth;
+        position: absolute;
+        top: $HeaderHeight;
+        left: 0;
+        bottom: 0;
+        background-color: $SideMenuBackgroundColor;
+    
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        color: lightgrey;
+        z-index: +1;
+
+        transform: translateX(-100%);
+        transition: transform 1s;
+        
+        .menu-item{
+            width: 100%;
+            height: 2.5em;
+            display: flex;
+            box-sizing: border-box;
+        }
+        .menu-item a{
+            width: 100%;
+            line-height: 2.5em;
+            flex-grow: 1;
+            color: white;
+            @include menuItem;
+        }
+    }
+    .side-menu.open {
+        transform: translateX(0%);
+    }
+
+}
+
+#page-dashboard .dashboard{
+    position: absolute;
+    top: $HeaderHeight;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    display: grid;
+    grid-gap: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    .cell {
+        background-color: lightcoral;
+        @include elevationZ(8px);
+    }
+}
+
+@media (min-width: $DesktopSize) {
+    .header .menu-button{
+        display: none;
+    }
+    .side-menu{
+        transform: translateX(0%)!important;
+    }
+    // For Desktop 3 Columns
+    #page-dashboard .dashboard{
+        left: $SideMenuWidth;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-auto-rows: 300px;
+    }
+}
+@media (min-width: $TabletSize) and (max-width: ($DesktopSize - 1)) {
+    // For Tablet 2 Columns
+    #page-dashboard .dashboard{
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 300px;
+    }
+    #page-dashboard .side-menu{
+        transform: translateX(-100%);
+    }
+}
+@media (max-width: ($TabletSize - 1)){
+    // For Phone 1 Columns
+    #page-dashboard .dashboard{
+        grid-template-columns: 1fr;
+        grid-auto-rows: 300px;
+    }
+    #page-dashboard .side-menu{
+        transform: translateX(-100%);
+    }
+}
